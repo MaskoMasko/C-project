@@ -5,15 +5,36 @@ class Program
 {
     static void Main()
     {
-        FootballClub myClub = new FootballClub("Moj Klub");
+        FootballClub myClub = new FootballClub("Barecelona", 1000);
+        FootballClub newClub = new FootballClub("Real Madrid", 1000);
 
-        Player player1 = new Player("Igrač 1", 25, "Napadač");
-        Player player2 = new Player("Igrač 2", 28, "Vezni");
+        Player player1 = new Player("Messi", 10, "Napadač", 100);
+        Player player2 = new Player("Ronaldo", 7, "Vezni", 200);
         myClub.AddPlayer(player1);
         myClub.AddPlayer(player2);
 
-        Match match1 = new Match("Protivnik 1", "Domaća");
-        Match match2 = new Match("Protivnik 2", "Gostujuća");
+        foreach (Player player in myClub.Players)
+        {
+            Console.WriteLine(player.ToString());
+
+            if (player.TransferHistory != null)
+            {
+                Console.WriteLine("Povijest transfera:");
+                foreach (Transfer transfer in player.TransferHistory)
+                {
+                    Console.WriteLine(transfer.ToString());
+                }
+            }
+            else
+            {
+                Console.WriteLine("Igrač nema povijest transfera.");
+            }
+
+            Console.WriteLine();
+        }
+
+        Match match1 = new Match("Bilbao", "Domaća", "Prijateljska");
+        Match match2 = new Match("PSG", "Gostujuća", "Liga");
         myClub.ScheduleMatch(match1);
         myClub.ScheduleMatch(match2);
 
@@ -21,11 +42,6 @@ class Program
         myClub.RecordMatchResult(match2, 1, 1);
 
         Console.WriteLine("Izvještaj o klubu: " + myClub.Name);
-        Console.WriteLine("Igrači:");
-        foreach (Player player in myClub.Players)
-        {
-            Console.WriteLine(player.ToString());
-        }
 
         Console.WriteLine("\nRaspored utakmica:");
         foreach (Match match in myClub.Matches)
@@ -34,6 +50,36 @@ class Program
         }
 
         Console.WriteLine("\nFinancije kluba: " + myClub.Finances);
+
+        Console.WriteLine("Izvještaj o klubu: " + myClub.Name);
+
+        myClub.TransferPlayer(player1, newClub);
+        myClub.TransferPlayer(player2, myClub);
+
+        myClub.RecordMatchResult(match1, 2, 1);
+        myClub.RecordMatchResult(match2, 1, 1);
+
+        Console.WriteLine("Igrači:");
+        Console.WriteLine("Povijest transfera:");
+        foreach (Player player in myClub.Players)
+        {
+            Console.WriteLine(player.ToString());
+
+            if (player.TransferHistory != null)
+            {
+                Console.WriteLine("Povijest transfera:");
+                foreach (Transfer transfer in player.TransferHistory)
+                {
+                    Console.WriteLine(transfer.ToString());
+                }
+            }
+            else
+            {
+                Console.WriteLine("Igrač nema povijest transfera.");
+            }
+
+            Console.WriteLine();
+        }
 
         Console.ReadLine();
     }

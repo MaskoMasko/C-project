@@ -4,11 +4,15 @@ public class Match
     public string Location { get; }
     public int HomeGoals { get; private set; }
     public int AwayGoals { get; private set; }
+    public string Result { get; set; }
+    public string TeamType { get; }
 
-    public Match(string opponent, string location)
+    public Match(string opponent, string location, string teamType)
     {
         Opponent = opponent;
         Location = location;
+        Result = "N/A";
+        TeamType = teamType;
     }
 
     public void RecordResult(int homeGoals, int awayGoals)
